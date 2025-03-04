@@ -1,2 +1,3 @@
-1. Backend Flask app setup
-2. Cron job or apschedler setup to run every 10 seconds
+1. Backend Flask app setup --> done
+2. Cron job or apschedler setup to run every 10 seconds --> done
+3. Figure out Youtube Api
