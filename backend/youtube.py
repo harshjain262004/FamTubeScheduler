@@ -17,9 +17,8 @@ def YoutubeAPIScript():
     if len(queries) == 0:
         print("No queries present in the database")
         return "No queries present in the database"
-    queries = [query[0] for query in queries]
-    for query in queries:
-        published_after = (datetime.now(timezone.utc) - timedelta(minutes=10)).replace(microsecond=0).strftime("%Y-%m-%dT%H:%M:%SZ")
+    for id,query in queries:
+        published_after = (datetime.now(timezone.utc) - timedelta(minutes=5)).replace(microsecond=0).strftime("%Y-%m-%dT%H:%M:%SZ")
         request = youtube.search().list(
             q="Cricket",
             part="snippet",
@@ -29,7 +28,6 @@ def YoutubeAPIScript():
             order="date"
         )
         response = request.execute()
-        AddVideos(response,query)
+        AddVideos(response,id)
     print("Script Completion")
     return "Script Completion"
-

@@ -3,4 +3,5 @@
 3. Figure out Youtube Api --> done
 4. Figure out the script --> done 
     4a. Build query store a table to store the query that scheduler wants to run every interval --> done
-5. Db structure
+5. Db structure --> done
+6. Make the Yt Job script more robust (adding more keys)
