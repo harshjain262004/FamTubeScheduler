@@ -1,3 +1,4 @@
 1. Backend Flask app setup --> done
 2. Cron job or apschedler setup to run every 10 seconds --> done
-3. Figure out Youtube Api
+3. Figure out Youtube Api --> done
+4. Figure out the script and Db structure
