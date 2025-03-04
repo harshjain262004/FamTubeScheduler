@@ -1,0 +1,2 @@
+1. Backend Flask app setup
+2. Cron job or apschedler setup to run every 10 seconds
