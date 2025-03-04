@@ -4,4 +4,5 @@
 4. Figure out the script --> done 
     4a. Build query store a table to store the query that scheduler wants to run every interval --> done
 5. Db structure --> done
-6. Make the Yt Job script more robust (adding more keys)
+6. Make the Yt Job script more robust (adding more keys) --> done (Circular switching of 15 api keys)
+7. API at the backend to fetch
