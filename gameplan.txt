@@ -1,4 +1,6 @@
 1. Backend Flask app setup --> done
 2. Cron job or apschedler setup to run every 10 seconds --> done
 3. Figure out Youtube Api --> done
-4. Figure out the script and Db structure
+4. Figure out the script --> done 
+    4a. Build query store a table to store the query that scheduler wants to run every interval --> done
+5. Db structure
