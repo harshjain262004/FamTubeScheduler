@@ -5,7 +5,7 @@ import pprint
 
 api_service_name = "youtube"
 api_version='v3'
-developer_key = "AIzaSyB1i3S7W-eGrhiKJXecps94YoQZjoN_zZY"
+developer_key = os.environ["YOUTUBE_API_KEY_1"]
 youtube = googleapiclient.discovery.build(api_service_name, api_version, developerKey=developer_key)
 
 def YoutubeAPIScript():
