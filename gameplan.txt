@@ -10,4 +10,5 @@
 9. Frontend
     a. Build a modular api to fetch videos via different attribute values --> done
 10. Testing with frontend --> done
-11. Documentation
+11. Documentation --> done
+12. Submitted
