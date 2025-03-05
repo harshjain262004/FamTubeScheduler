@@ -41,7 +41,7 @@
 
     npm install or yarn install or pnpm install
 
-    npm/yarn/pnpm run dev
+    npm run dev or pnpm run dev or yarn dev
 
 ## BONUS FEATURES
 1. A simple next js app with features like debouncing and stats like total Videos available.
@@ -65,7 +65,25 @@
 
 For the latest progress report of the last 24 hours, check:  [Game Plan](https://github.com/harshjain262004/FamTubeScheduler/blob/main/gameplan.txt)    
 
-    
+## Backend (.env) example
+        YOUTUBE_API_KEY_0=""
+        YOUTUBE_API_KEY_1=""
+        YOUTUBE_API_KEY_2=""
+        YOUTUBE_API_KEY_3=""
+        YOUTUBE_API_KEY_4=""
+        YOUTUBE_API_KEY_5=""
+        YOUTUBE_API_KEY_6=""
+        YOUTUBE_API_KEY_7=""
+        YOUTUBE_API_KEY_8=""
+        YOUTUBE_API_KEY_9=""
+        YOUTUBE_API_KEY_10=""
+        YOUTUBE_API_KEY_11=""
+        YOUTUBE_API_KEY_12=""
+        YOUTUBE_API_KEY_13=""
+        YOUTUBE_API_KEY_14=""
+        POSTGRES_API=""
+  
+
 ## Methodolgy and Implementation
 1. Built a Flask based backend application that runs a Youtube API asynchronously in the backend after a regular interval. (currently 1 minute).
 --> Using APscheduler to Schedule timed jobs during the server runtime.
