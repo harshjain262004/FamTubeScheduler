@@ -61,7 +61,9 @@
         0-1-2-3-4-5-6-7-8-9-10-11-12-13-14 -> 0-1....
         It is a circular approach to avoid exhaustion of keys.
     
-    
+## Progress Report
+
+For the latest progress report of the last 24 hours, check:  [Game Plan](https://github.com/harshjain262004/FamTubeScheduler/blob/main/gameplan.txt)    
 
     
 ## Methodolgy and Implementation
