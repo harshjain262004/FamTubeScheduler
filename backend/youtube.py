@@ -5,6 +5,12 @@ from dotenv import load_dotenv
 load_dotenv()
 from Db import getQueries, AddVideos
 
+# This function runs every minute to 
+# fetch the latest videos from the Youtube API
+# and add them to the database.
+# It also updates the keyIndex to use a different API key
+# every time the function runs.
+# The keyIndex is stored in a file called keyIndex.txt 
 def YoutubeAPIScript():
     start = str(datetime.now())
     print("Script Started: " + start)
@@ -29,6 +35,7 @@ def YoutubeAPIScript():
         )
         response = request.execute()
         AddVideos(response,id)
+    # Using Cicular counting to update the keyIndex 0...14...0...14
     updateKeyIndex((keyIndex+1)%15)
     end = str(datetime.now())
     print("Script Ended: " + end)
@@ -36,6 +43,7 @@ def YoutubeAPIScript():
     print("Script Completion")
     return "Script Completion"
 
+# This function is used to get the keyIndex from the file keyIndex.txt otherwisr return 0
 def getIndexFromFile():
     with open("keyIndex.txt","r") as f:
         content = f.read()
@@ -43,6 +51,7 @@ def getIndexFromFile():
             return 0
         return int(content)
 
+# This function is used to update the keyIndex in the file keyIndex.txt clear all content and write the new keyIndex
 def updateKeyIndex(keyIndex):
     with open("keyIndex.txt","w") as f:
         f.write(str(keyIndex))
