@@ -4,10 +4,10 @@ from datetime import datetime, timedelta,timezone
 from dotenv import load_dotenv
 load_dotenv()
 from Db import getQueries, AddVideos
-import time
 
 def YoutubeAPIScript():
-    print("Script Started: " + str(datetime.now()))
+    start = str(datetime.now())
+    print("Script Started: " + start)
     keyIndex = getIndexFromFile()
     api_service_name = "youtube"
     api_version='v3'
@@ -30,6 +30,9 @@ def YoutubeAPIScript():
         response = request.execute()
         AddVideos(response,id)
     updateKeyIndex((keyIndex+1)%15)
+    end = str(datetime.now())
+    print("Script Ended: " + end)
+    print("Time taken: " + str(datetime.strptime(end, "%Y-%m-%d %H:%M:%S.%f") - datetime.strptime(start, "%Y-%m-%d %H:%M:%S.%f")))
     print("Script Completion")
     return "Script Completion"
 

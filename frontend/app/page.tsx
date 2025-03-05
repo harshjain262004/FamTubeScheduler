@@ -1,8 +1,7 @@
 "use client"
 
 import type React from "react"
-
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useTheme } from "next-themes"
 import { ChevronLeft, ChevronRight, RefreshCw, Sun, Moon } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -10,6 +9,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
+
+// Add this utility function after the imports
+const debounce = <T extends (...args: any[]) => void>(
+  func: T,
+  wait: number
+): T => {
+  let timeout: NodeJS.Timeout
+  return ((...args: Parameters<T>) => {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => func(...args), wait)
+  }) as T
+}
 
 interface Thumbnail {
   url: string
@@ -54,15 +65,30 @@ export default function Dashboard() {
     setMounted(true)
   }, [])
 
+  // Add this useEffect right after your existing useEffect for mounted state
+  useEffect(() => {
+    if (mounted) {
+      fetchVideos();
+    }
+  }, [mounted]); // This will run once mounted becomes true
+
+  // Add fetchVideos to dependency array for the variables it uses
+  useEffect(() => {
+    if (mounted) {
+      fetchVideos();
+    }
+  }, [page, limit, sort]); // This will run when pagination/sorting changes
+
   const fetchVideos = async () => {
     setLoading(true)
     try {
-      const response = await fetch(`http://127.0.0.1:5000/api/getVideos?page=${page}&limit=${limit}&sort=${sort}`)
-      const data: ApiResponse = await response.json()
-      setVideos(data.videos || [])
       const TotalDataAPIcall = await fetch(`http://127.0.0.1:5000/api/getTotalVideo`)
       const TotalData: ApiResponse = await TotalDataAPIcall.json()
       setTotalVideos(TotalData.total || 0)
+
+      const response = await fetch(`http://127.0.0.1:5000/api/getVideos?page=${page}&limit=${limit}&sort=${sort}`)
+      const data: ApiResponse = await response.json()
+      setVideos(data.videos || [])
     } catch (error) {
       console.error("Error fetching videos or Total:", error)
     } finally {
@@ -70,25 +96,33 @@ export default function Dashboard() {
     }
   }
 
-  useEffect(() => {
-    fetchVideos()
-  }, [page, limit, sort])
+  // Add debounced fetch function
+  const debouncedFetch = useCallback(
+    debounce(() => {
+      fetchVideos()
+    }, 500),
+    []
+  )
 
+  // Replace the existing handlers with these
   const handlePageChange = (newPage: number) => {
     if (newPage < 1) return
     setPage(newPage)
+    debouncedFetch()
   }
 
   const handleLimitChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newLimit = Number.parseInt(event.target.value)
     if (isNaN(newLimit) || newLimit < 1) return
     setLimit(newLimit)
+    debouncedFetch()
   }
 
   const handlePageInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newPage = Number.parseInt(event.target.value)
     if (isNaN(newPage) || newPage < 1) return
     setPage(newPage)
+    debouncedFetch()
   }
 
   const formatDate = (dateString: string) => {
@@ -149,7 +183,13 @@ export default function Dashboard() {
             <label htmlFor="sort" className="text-sm font-medium">
               Sort by Date
             </label>
-            <Select value={sort} onValueChange={setSort}>
+            <Select 
+              value={sort} 
+              onValueChange={(value) => {
+                setSort(value)
+                debouncedFetch()
+              }}
+            >
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Sort by Date" />
               </SelectTrigger>

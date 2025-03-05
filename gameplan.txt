@@ -9,4 +9,5 @@
 8. Maybe Frontend, (time remaining for deadline)
 9. Frontend
     a. Build a modular api to fetch videos via different attribute values --> done
-    b. Build a API for adding search queries via Frontend
+10. Testing with frontend --> done
+11. Documentation
