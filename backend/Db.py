@@ -25,9 +25,8 @@ def AddVideos(response,query_id):
         thumbnails = videoDetails["thumbnails"]
         thumbnailsJson = json.dumps(thumbnails)
         channelTitle = videoDetails["channelTitle"]
-        cursor.execute("INSERT INTO videos (video_id,title,description,published_at,channel_id,channel_title,thumbnails,query_id) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",(videoId,title,description,publishedAt,channelId,channelTitle,thumbnailsJson,query_id))
+        cursor.execute("INSERT INTO videos (video_id,title,description,published_at,channel_id,channel_title,thumbnails,query_id) VALUES (%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (video_id) DO NOTHING",(videoId,title,description,publishedAt,channelId,channelTitle,thumbnailsJson,query_id))
         connection.commit()
-    print("Videos added to the database: ", len(videos))
     return "Videos added to the database"
 
 def fetchVideos(page, limit):

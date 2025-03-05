@@ -4,8 +4,10 @@ from datetime import datetime, timedelta,timezone
 from dotenv import load_dotenv
 load_dotenv()
 from Db import getQueries, AddVideos
+import time
 
 def YoutubeAPIScript():
+    print("Script Started: " + str(datetime.now()))
     keyIndex = getIndexFromFile()
     api_service_name = "youtube"
     api_version='v3'
@@ -33,10 +35,10 @@ def YoutubeAPIScript():
 
 def getIndexFromFile():
     with open("keyIndex.txt","r") as f:
-        if f.read() == "":
+        content = f.read()
+        if content == "":
             return 0
-        keyIndex = int(f.read())
-    return keyIndex
+        return int(content)
 
 def updateKeyIndex(keyIndex):
     with open("keyIndex.txt","w") as f:
